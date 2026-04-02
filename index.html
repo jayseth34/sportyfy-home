@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#070A13" />
+    <title>SPORTYFY — Auctions, Tournaments, Scoring & Live Overlays</title>
+    <meta
+      name="description"
+      content="SPORTYFY is a modern sporting operations app: player auctions, team management, tournaments, fixtures, scoring, and YouTube/live auction overlays — for cricket and any sport."
+    />
+    <meta property="og:title" content="SPORTYFY" />
+    <meta property="og:description" content="Auctions, tournaments, fixtures, scoring & live overlays — for cricket and any sport." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/img/og.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="bg" aria-hidden="true">
+      <canvas id="fx" class="fx"></canvas>
+      <div class="aurora"></div>
+      <div class="grid"></div>
+    </div>
+
+    <header class="header" id="top">
+      <nav class="nav">
+        <a class="brand" href="#top" aria-label="SPORTYFY home">
+          <!-- <span class="brandMark" aria-hidden="true"></span> -->
+          <span class="brandText">SPORTYFY</span>
+        </a>
+
+        <button class="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks">
+          <span></span><span></span>
+        </button>
+
+        <div class="navLinks" id="navlinks">
+          <a href="#product">Product</a>
+          <a href="#features">Features</a>
+          <a href="#overlays">Overlays</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#contact">Contact</a>
+          <a class="cta" href="tel:+919920420192">Call 9920420192</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="wrap heroGrid">
+          <div class="heroCopy">
+            <div class="pill" data-reveal>
+              <span class="dot" aria-hidden="true"></span>
+              <span>Built for cricket. Ready for any sport.</span>
+            </div>
+
+            <h1 class="h1">
+              <span data-split>Run auctions, tournaments, fixtures, and scoring —</span>
+              <span class="grad h1Accent" data-reveal>all in one place</span>.
+            </h1>
+
+            <p class="lead" data-reveal>
+              SPORTYFY helps organizers, clubs, and creators manage player auctions, create teams, schedule fixtures,
+              score live, and broadcast with YouTube overlays and live auction overlays.
+            </p>
+
+            <div class="heroActions" data-reveal>
+              <a class="btn primary" href="tel:+919920420192">Call: 9920420192</a>
+              <a class="btn ghost" href="https://wa.me/919920420192" target="_blank" rel="noreferrer">WhatsApp</a>
+            </div>
+
+            <div class="trust" data-reveal>
+              <div class="trustItem">
+                <span class="kpi" data-count="1800">0</span>
+                <span class="kpiLabel">Players managed</span>
+              </div>
+              <div class="trustItem">
+                <span class="kpi" data-count="240">0</span>
+                <span class="kpiLabel">Tournaments created</span>
+              </div>
+              <div class="trustItem">
+                <span class="kpi" data-count="9200">0</span>
+                <span class="kpiLabel">Overs scored live</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="heroVisual" aria-hidden="true">
+            <div class="device">
+              <div class="deviceTop">
+                <span class="cam"></span>
+                <span class="speaker"></span>
+              </div>
+              <div class="screen">
+                <div class="screenTop">
+                  <span class="chip">LIVE</span>
+                  <span class="mono">Auction Room</span>
+                  <span class="spacer"></span>
+                  <span class="pillSmall">SPORTYFY</span>
+                </div>
+                <div class="screenBody">
+                  <div class="card score">
+                    <div class="cardHead">
+                      <span class="mono">Cricket · Match 04</span>
+                      <span class="badge">Scoring</span>
+                    </div>
+                    <div class="scoreRow">
+                      <div class="team">
+                        <span class="tDot t1"></span>
+                        <span class="tName">WARRIORS</span>
+                      </div>
+                      <div class="scoreNum">
+                        <span class="big">128/3</span>
+                        <span class="sub">15.4 ov</span>
+                      </div>
+                    </div>
+                    <div class="miniRow">
+                      <div class="mini">
+                        <span class="mono">Run rate</span><span class="mono strong">8.10</span>
+                      </div>
+                      <div class="mini">
+                        <span class="mono">Target</span><span class="mono strong">167</span>
+                      </div>
+                      <div class="mini">
+                        <span class="mono">Need</span><span class="mono strong">39 (26)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card auction">
+                    <div class="cardHead">
+                      <span class="mono">Player Auction</span>
+                      <span class="badge hot">Live Bid</span>
+                    </div>
+                    <div class="auctionRow">
+                      <img class="avatar" src="assets/img/player.jpg" alt="" />
+                      <div class="who">
+                        <div class="whoName">Aarav Patel</div>
+                        <div class="whoMeta mono">All-rounder | Base Rs 15L</div>
+                      </div>
+                      <div class="bid">
+                        <div class="bidVal">Rs 42L</div>
+                        <div class="bidMeta mono">Highest bid</div>
+                      </div>
+                    </div>
+                    <div class="bidders">
+                      <div class="bidder"><span class="bDot b1"></span><span class="mono">Blazers</span></div>
+                      <div class="bidder"><span class="bDot b2"></span><span class="mono">Titans</span></div>
+                      <div class="bidder"><span class="bDot b3"></span><span class="mono">Strikers</span></div>
+                      <div class="bidder"><span class="bDot b4"></span><span class="mono">Rangers</span></div>
+                    </div>
+                  </div>
+
+                  <div class="ticker" aria-hidden="true">
+                    <div class="tickerTrack">
+                      <span>AUCTIONS</span><span>FIXTURES</span><span>SCORING</span><span>OVERLAYS</span><span>ANALYTICS</span>
+                      <span>AUCTIONS</span><span>FIXTURES</span><span>SCORING</span><span>OVERLAYS</span><span>ANALYTICS</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="deviceGlow"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="product">
+        <div class="wrap">
+          <div class="sectionHead">
+            <h2 class="h2" data-split>Everything you need to run a league</h2>
+            <p class="muted" data-reveal>
+              From auction night to finals day — SPORTYFY keeps your players, teams, fixtures, and live scoring synced.
+            </p>
+          </div>
+
+          <div class="tiles">
+            <article class="tile" data-reveal>
+              <div class="tileIcon i1" aria-hidden="true"></div>
+              <h3>Auctions</h3>
+              <p>Live bidding, base prices, auto timers, rosters, budgets, and instant team updates.</p>
+              <ul class="tileList">
+                <li>Role filters & shortlists</li>
+                <li>Bid history</li>
+                <li>Live overlay export</li>
+              </ul>
+            </article>
+
+            <article class="tile" data-reveal>
+              <div class="tileIcon i2" aria-hidden="true"></div>
+              <h3>Players & Teams</h3>
+              <p>Create player profiles, assign roles, manage squads, and track performance across seasons.</p>
+              <ul class="tileList">
+                <li>Multiple sports support</li>
+                <li>Roster rules</li>
+                <li>Captain/vice captain</li>
+              </ul>
+            </article>
+
+            <article class="tile" data-reveal>
+              <div class="tileIcon i3" aria-hidden="true"></div>
+              <h3>Tournaments</h3>
+              <p>Round‑robin, groups, knockouts, points tables, and auto‑generated brackets.</p>
+              <ul class="tileList">
+                <li>Venues & timings</li>
+                <li>Umpires & scorers</li>
+                <li>Stats & leaderboards</li>
+              </ul>
+            </article>
+
+            <article class="tile" data-reveal>
+              <div class="tileIcon i4" aria-hidden="true"></div>
+              <h3>Fixtures</h3>
+              <p>Build fixtures in minutes, share schedules, and keep fans updated in real‑time.</p>
+              <ul class="tileList">
+                <li>Auto schedule templates</li>
+                <li>Conflict detection</li>
+                <li>Shareable links</li>
+              </ul>
+            </article>
+
+            <article class="tile" data-reveal>
+              <div class="tileIcon i5" aria-hidden="true"></div>
+              <h3>Scoring</h3>
+              <p>Ball‑by‑ball scoring, live commentary, scorecards, and exports.</p>
+              <ul class="tileList">
+                <li>Cricket-first UX</li>
+                <li>Offline-friendly modes</li>
+                <li>Instant highlights</li>
+              </ul>
+            </article>
+
+            <article class="tile" data-reveal>
+              <div class="tileIcon i6" aria-hidden="true"></div>
+              <h3>Broadcast Overlays</h3>
+              <p>YouTube overlays, live auction overlays, and graphics that match your brand.</p>
+              <ul class="tileList">
+                <li>Score overlay</li>
+                <li>Lower thirds</li>
+                <li>Sponsor rotations</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt" id="features">
+        <div class="wrap">
+          <div class="split">
+            <div class="left">
+              <h2 class="h2" data-split>Designed for speed on match day</h2>
+              <p class="muted" data-reveal>
+                Tap-first controls, quick actions, and clean layouts — so your scorer and auctioneer can focus on the game.
+              </p>
+
+              <div class="featureList">
+                <div class="feature" data-reveal>
+                  <div class="fNum mono">01</div>
+                  <div class="fBody">
+                    <div class="fTitle">Instant fixtures</div>
+                    <div class="fText">Generate schedules, add venues, publish and share to teams.</div>
+                  </div>
+                </div>
+                <div class="feature" data-reveal>
+                  <div class="fNum mono">02</div>
+                  <div class="fBody">
+                    <div class="fTitle">Auction controls</div>
+                    <div class="fText">Timers, increments, budgets, and roster rules built in.</div>
+                  </div>
+                </div>
+                <div class="feature" data-reveal>
+                  <div class="fNum mono">03</div>
+                  <div class="fBody">
+                    <div class="fTitle">Live scoring</div>
+                    <div class="fText">Ball-by-ball input with pro scorecards and live stats.</div>
+                  </div>
+                </div>
+                <div class="feature" data-reveal>
+                  <div class="fNum mono">04</div>
+                  <div class="fBody">
+                    <div class="fTitle">Creator overlays</div>
+                    <div class="fText">Use overlays in OBS/Streamlabs for YouTube and live events.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="right">
+              <div class="stack" aria-hidden="true">
+                <div class="stackCard sc1">
+                  <div class="stackTop">
+                    <span class="mono">Points Table</span>
+                    <span class="pillSmall">Auto</span>
+                  </div>
+                  <div class="table">
+                    <div class="row head">
+                      <span>Team</span><span>P</span><span>W</span><span>NRR</span><span>Pts</span>
+                    </div>
+                    <div class="row"><span><i class="tDot t2"></i> Titans</span><span>6</span><span>5</span><span>+1.24</span><span>10</span></div>
+                    <div class="row"><span><i class="tDot t3"></i> Blazers</span><span>6</span><span>4</span><span>+0.58</span><span>8</span></div>
+                    <div class="row"><span><i class="tDot t4"></i> Rangers</span><span>6</span><span>3</span><span>+0.09</span><span>6</span></div>
+                    <div class="row"><span><i class="tDot t5"></i> Strikers</span><span>6</span><span>2</span><span>-0.41</span><span>4</span></div>
+                  </div>
+                </div>
+                <div class="stackCard sc2">
+                  <div class="stackTop">
+                    <span class="mono">Fixture Builder</span>
+                    <span class="pillSmall">Fast</span>
+                  </div>
+                  <div class="fixture">
+                    <div class="fxRow"><span class="chip">Sat 7:30 PM</span><span>Warriors vs Titans</span></div>
+                    <div class="fxRow"><span class="chip">Sun 6:00 PM</span><span>Blazers vs Rangers</span></div>
+                    <div class="fxRow"><span class="chip">Tue 8:00 PM</span><span>Strikers vs Titans</span></div>
+                  </div>
+                </div>
+                <div class="stackCard sc3">
+                  <div class="stackTop">
+                    <span class="mono">Auction Overlay</span>
+                    <span class="pillSmall">OBS</span>
+                  </div>
+                  <div class="overlayMini">
+                    <div class="oLine">
+                      <span class="chip">LIVE</span>
+                      <span class="mono">Aarav Patel - All-rounder</span>
+                    </div>
+                    <div class="oBid">Rs 42L</div>
+                    <div class="oBar">
+                      <span class="oFill"></span>
+                    </div>
+                    <div class="oTeams">
+                      <span class="mono"><i class="bDot b1"></i> Blazers</span>
+                      <span class="mono"><i class="bDot b2"></i> Titans</span>
+                      <span class="mono"><i class="bDot b4"></i> Rangers</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="overlays">
+        <div class="wrap">
+          <div class="sectionHead">
+            <h2 class="h2" data-split>Overlays that look premium on stream</h2>
+            <p class="muted" data-reveal>
+              Plug into OBS as a browser source. Animate automatically from scoring or auction data.
+            </p>
+          </div>
+
+          <div class="overlayDemo" data-reveal>
+            <div class="stage">
+              <div class="stageVideo" aria-hidden="true">
+                <img src="assets/img/pitch.jpg" alt="" loading="lazy" />
+                <div class="vignette"></div>
+              </div>
+
+              <div class="hud">
+                <div class="hudScore">
+                  <div class="hudTop">
+                    <span class="chip">LIVE</span>
+                    <span class="mono">WARRIORS vs TITANS</span>
+                    <span class="spacer"></span>
+                    <span class="mono">Overs 15.4</span>
+                  </div>
+                  <div class="hudMain">
+                    <div class="hudLeft">
+                      <div class="hudBig">128/3</div>
+                      <div class="hudSub mono">CRR 8.10 - Need 39 (26)</div>
+                    </div>
+                    <div class="hudRight">
+                      <div class="stat">
+                        <div class="mono">Striker</div>
+                        <div class="mono strong">R. Mehta 34 (22)</div>
+                      </div>
+                      <div class="stat">
+                        <div class="mono">Bowler</div>
+                        <div class="mono strong">K. Singh 2/18</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="sponsor mono">SPONSORED BY SPORTYFY</div>
+                </div>
+
+                <div class="hudAuction">
+                  <div class="aTop">
+                    <span class="mono">Now Bidding</span>
+                    <span class="chip hot">AUCTION LIVE</span>
+                  </div>
+                  <div class="aBody">
+                    <img class="avatar big" src="assets/img/player.jpg" alt="" loading="lazy" />
+                    <div class="aMeta">
+                      <div class="aName">Aarav Patel</div>
+                      <div class="mono">All-rounder - Base Rs 15L - Lot 18</div>
+                    </div>
+                    <div class="aBid">
+                      <div class="aBidVal">Rs 42L</div>
+                      <div class="mono">Highest Bid</div>
+                    </div>
+                  </div>
+                  <div class="aFooter">
+                    <div class="aTeams">
+                      <span class="teamTag"><i class="bDot b1"></i> Blazers</span>
+                      <span class="teamTag"><i class="bDot b2"></i> Titans</span>
+                      <span class="teamTag"><i class="bDot b3"></i> Strikers</span>
+                      <span class="teamTag"><i class="bDot b4"></i> Rangers</span>
+                    </div>
+                    <div class="timer mono"><span class="pulse"></span> 00:12</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="overlayControls">
+              <div class="ocHead">
+                <div class="mono">Overlay Controls</div>
+                <div class="ocHint">Try toggles - animations are real</div>
+              </div>
+              <div class="ocGrid">
+                <button class="toggle" type="button" data-toggle="score">
+                  <span class="tKnob" aria-hidden="true"></span>
+                  <span class="tText">Scoreboard</span>
+                </button>
+                <button class="toggle" type="button" data-toggle="auction">
+                  <span class="tKnob" aria-hidden="true"></span>
+                  <span class="tText">Auction Card</span>
+                </button>
+                <button class="toggle" type="button" data-toggle="sponsor">
+                  <span class="tKnob" aria-hidden="true"></span>
+                  <span class="tText">Sponsor Strip</span>
+                </button>
+                <button class="toggle" type="button" data-toggle="motion">
+                  <span class="tKnob" aria-hidden="true"></span>
+                  <span class="tText">Cinematic Motion</span>
+                </button>
+              </div>
+
+              <div class="ocNote mono">
+                Tip: SPORTYFY overlays can be used as an OBS browser source and styled for your brand.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt" id="workflow">
+        <div class="wrap">
+          <div class="sectionHead">
+            <h2 class="h2" data-split>From auction night to finals day</h2>
+            <p class="muted" data-reveal>One workflow, no spreadsheets, no chaos.</p>
+          </div>
+
+          <div class="steps">
+            <div class="step" data-reveal>
+              <div class="stepTop">
+                <span class="mono">Step 1</span>
+                <span class="chip">Setup</span>
+              </div>
+              <h3>Add players</h3>
+              <p>Import or create profiles, roles, and base prices. Create teams and rules.</p>
+            </div>
+            <div class="step" data-reveal>
+              <div class="stepTop">
+                <span class="mono">Step 2</span>
+                <span class="chip">Live</span>
+              </div>
+              <h3>Run auctions</h3>
+              <p>Bid live with timers, budgets, and overlays. Final squads update instantly.</p>
+            </div>
+            <div class="step" data-reveal>
+              <div class="stepTop">
+                <span class="mono">Step 3</span>
+                <span class="chip">Schedule</span>
+              </div>
+              <h3>Create fixtures</h3>
+              <p>Generate fixtures, publish schedules, and share match links with teams.</p>
+            </div>
+            <div class="step" data-reveal>
+              <div class="stepTop">
+                <span class="mono">Step 4</span>
+                <span class="chip">Score</span>
+              </div>
+              <h3>Score and stream</h3>
+              <p>Ball-by-ball scoring and premium overlays for YouTube and live streams.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section ctaSection" id="contact">
+        <div class="wrap">
+          <div class="ctaBox" data-reveal>
+            <div class="ctaLeft">
+              <h2 class="h2" data-split>Contact SPORTYFY</h2>
+              <p class="muted">
+                For pricing and process, everything will be discussed directly with the owner of SPORTYFY.
+              </p>
+              <div class="ctaBadges">
+                <span class="tag">Cricket scoring</span>
+                <span class="tag">Auctions</span>
+                <span class="tag">YouTube overlays</span>
+                <span class="tag">Live fixtures</span>
+              </div>
+            </div>
+
+            <div class="contactCard" aria-label="Contact details">
+              <div class="contactRow">
+                <div class="mono contactLabel">Phone</div>
+                <a class="contactNumber" href="tel:+919920420192">9920420192</a>
+              </div>
+              <div class="contactActions">
+                <a class="btn primary" href="tel:+919920420192">Call now</a>
+                <a class="btn ghost" href="https://wa.me/919920420192" target="_blank" rel="noreferrer">WhatsApp</a>
+              </div>
+              <p class="contactNote mono">Available for inquiries and onboarding.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footGrid">
+        <div class="footBrand">
+          <div class="brand big">
+            <!-- <span class="brandMark" aria-hidden="true"></span> -->
+            <span class="brandText">SPORTYFY</span>
+          </div>
+          <p class="muted">Auctions | Tournaments | Fixtures | Scoring | Overlays</p>
+        </div>
+        <div class="footLinks">
+          <a href="#product">Product</a>
+          <a href="#features">Features</a>
+          <a href="#overlays">Overlays</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footMeta mono">
+          <span>(c) <span id="year"></span> SPORTYFY</span>
+          <span>Made to look fast.</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

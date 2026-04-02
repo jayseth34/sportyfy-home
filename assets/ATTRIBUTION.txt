@@ -1,0 +1,17 @@
+﻿Images (Unsplash License):
+
+- assets/img/stadium.jpg
+  Source: https://unsplash.com/photos/uplPFLDsn84
+  Author: Zoshua Colah
+
+- assets/img/pitch.jpg
+  Source: https://unsplash.com/photos/H4dFsfhdkTo
+  Author: Zoshua Colah
+
+- assets/img/player.jpg
+  Source: https://unsplash.com/photos/fzC0EMg8IPQ
+  Author: Brian Kyed
+
+- assets/img/og.jpg
+  Source: https://unsplash.com/photos/7jj28U7C6to
+  Author: Logan Voss
