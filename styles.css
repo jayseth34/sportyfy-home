@@ -793,6 +793,26 @@ body{
 }
 /* Only show the particle logo during intro */
 .introBrand{display:none}
+.introHint{
+  position:absolute;
+  bottom: clamp(18px, 5vh, 46px);
+  left:50%;
+  transform: translateX(-50%);
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.35);
+  color: rgba(255,255,255,.82);
+  font-size: 12px;
+  letter-spacing: .2px;
+  opacity: 0;
+  transition: opacity .35s ease, transform .35s ease;
+  pointer-events:none;
+}
+.introHint.show{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 /* Hide page content during intro, then fade in */
 body.introActive .header,

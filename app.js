@@ -47,8 +47,10 @@ function initFx() {
   if (introEl) introEl.classList.add("show");
 
   // Voice during intro: "Welcome to SPORTYFY"
-  let welcomeSpoken = false;
+  let welcomeStarted = false;
+  let welcomeAttempted = false;
   let cachedVoice = null;
+  const hintEl = document.getElementById("introHint");
 
   function pickVoice() {
     if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
@@ -60,10 +62,16 @@ function initFx() {
       null;
   }
 
-  function speakWelcome() {
-    if (welcomeSpoken) return;
+  function showHint(on) {
+    if (!hintEl) return;
+    hintEl.classList.toggle("show", Boolean(on));
+  }
+
+  function speakWelcome(force = false) {
+    if (welcomeStarted) return;
+    if (welcomeAttempted && !force) return;
     if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
-    welcomeSpoken = true;
+    welcomeAttempted = true;
 
     try {
       pickVoice();
@@ -74,17 +82,27 @@ function initFx() {
       u.rate = 0.95;
       u.pitch = 1.02;
       u.volume = 1;
+      u.onstart = () => {
+        welcomeStarted = true;
+        showHint(false);
+      };
+      u.onerror = () => {
+        showHint(true);
+      };
       window.speechSynthesis.speak(u);
     } catch {
-      // Ignore
+      showHint(true);
     }
   }
 
-  // Try to play automatically (may be blocked by browser). If blocked, user tap during intro will play it.
+  // Try to play automatically (often blocked). If blocked, show hint and require a tap during intro.
   if (!prefersReduced) {
     window.speechSynthesis?.addEventListener?.("voiceschanged", pickVoice);
-    setTimeout(speakWelcome, 120);
-    introEl?.addEventListener("pointerdown", speakWelcome, { once: true });
+    setTimeout(() => speakWelcome(false), 120);
+    setTimeout(() => {
+      if (!welcomeStarted) showHint(true);
+    }, 900);
+    introEl?.addEventListener("pointerdown", () => speakWelcome(true), { passive: true });
   }
 
   const ctx = canvas.getContext("2d", { alpha: true });
