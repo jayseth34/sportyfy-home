@@ -37,6 +37,51 @@ if (navToggle && navLinks) {
   });
 }
 
+// Voice: pronounce "SPORTYFY" (requires user gesture on most browsers)
+function initVoice() {
+  const btn = document.getElementById("speakBtn");
+  const brand = document.querySelector(".brand");
+  if (!btn && !brand) return;
+
+  if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
+
+  let cachedVoice = null;
+
+  function pickVoice() {
+    const voices = window.speechSynthesis.getVoices?.() || [];
+    cachedVoice =
+      voices.find((v) => String(v.lang).toLowerCase().startsWith("en") && /female|samantha|zira/i.test(v.name)) ||
+      voices.find((v) => String(v.lang).toLowerCase().startsWith("en")) ||
+      voices[0] ||
+      null;
+  }
+
+  pickVoice();
+  window.speechSynthesis.addEventListener?.("voiceschanged", pickVoice);
+
+  function speak() {
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance("Sportyfy");
+      u.lang = (cachedVoice && cachedVoice.lang) || "en-US";
+      if (cachedVoice) u.voice = cachedVoice;
+      u.rate = 0.95;
+      u.pitch = 1.05;
+      u.volume = 1;
+      window.speechSynthesis.speak(u);
+    } catch {
+      // Ignore
+    }
+  }
+
+  btn?.addEventListener("click", speak);
+  brand?.addEventListener("dblclick", (e) => {
+    e.preventDefault();
+    speak();
+  });
+}
+initVoice();
+
 // Canvas particles background
 function initFx() {
   const canvas = document.getElementById("fx");
