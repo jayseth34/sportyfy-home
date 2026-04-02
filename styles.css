@@ -718,6 +718,335 @@ button,input{font:inherit}
 .footMeta{display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; color: rgba(0,0,0,.56); font-size:12px}
 
 /* Responsive */
+:root{
+  /* Dark + neon (mobile-first like reference) */
+  --bg0:#070B12;
+  --bg1:#0B1220;
+  --bg2:#0A0F1C;
+  --stroke:rgba(255,255,255,.10);
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.70);
+  --muted2:rgba(255,255,255,.52);
+  --shadow: 0 25px 70px rgba(0,0,0,.55);
+  --surface: rgba(255,255,255,.06);
+  --surface2: rgba(255,255,255,.10);
+  --neon: #39FF14;
+  --blue: #60A5FA;
+}
+
+body{
+  color-scheme: dark;
+  background: linear-gradient(180deg, var(--bg0), var(--bg2));
+}
+
+.bg{background: var(--bg0)}
+.bg:before{
+  background: rgba(0,0,0,.20);
+  backdrop-filter: blur(10px) saturate(110%);
+  -webkit-backdrop-filter: blur(10px) saturate(110%);
+  background-image:
+    repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0, rgba(255,255,255,.04) 1px, transparent 1px, transparent 10px);
+  opacity: .35;
+}
+.grid{
+  opacity:.22;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.07) 1px, transparent 1px);
+}
+
+/* Intro overlay (dark screen while particles form logo) */
+.introOverlay{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background: #000;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .55s ease;
+}
+.introOverlay .fx{z-index:1}
+.introOverlay .introInner{z-index:2}
+.introOverlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+.introOverlay.hide{
+  opacity:0;
+  pointer-events:none;
+}
+.introInner{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+}
+.introBrand{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  color: rgba(255,255,255,.88);
+  font-weight:800;
+  letter-spacing:.8px;
+  opacity:.85;
+}
+/* Only show the particle logo during intro */
+.introBrand{display:none}
+
+/* Hide page content during intro, then fade in */
+body.introActive .header,
+body.introActive main,
+body.introActive .footer{
+  opacity:0;
+  transform: translateY(10px);
+  filter: blur(2px);
+  pointer-events:none;
+}
+.header, main, .footer{
+  transition: opacity .55s ease, transform .55s ease, filter .55s ease;
+}
+
+/* Force background fully dark during intro */
+body.introActive{
+  background:#000;
+}
+body.introActive .bg{
+  background:#000;
+}
+body.introActive .bg:before{
+  opacity:0;
+}
+
+.header{
+  background: rgba(0,0,0,.35);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.brandMark{
+  box-shadow:0 0 0 1px rgba(255,255,255,.12) inset, 0 12px 30px rgba(96,165,250,.22);
+}
+.navLinks a{color: rgba(255,255,255,.82)}
+.navLinks a:hover{background: rgba(255,255,255,.06); color: rgba(255,255,255,.96)}
+.navLinks .cta{
+  background: linear-gradient(120deg, rgba(57,255,20,.18), rgba(96,165,250,.18));
+  border: 1px solid rgba(255,255,255,.12);
+}
+.navToggle{
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+}
+.navToggle span{background: rgba(255,255,255,.86)}
+
+.pill{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.lead{color: rgba(255,255,255,.78)}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  inset:-80px -40px -80px -40px;
+  background:
+    radial-gradient(900px 520px at 18% 0%, rgba(57,255,20,.16), transparent 60%),
+    radial-gradient(900px 520px at 82% 10%, rgba(96,165,250,.18), transparent 60%),
+    radial-gradient(900px 520px at 65% 88%, rgba(77,227,255,.12), transparent 60%);
+  pointer-events:none;
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  right:-8%;
+  top: 10px;
+  width: min(520px, 72vw);
+  height: min(640px, 78vh);
+  background-image: url("assets/img/player.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(.05) contrast(1.05) brightness(.95);
+  opacity: .22;
+  mask-image: radial-gradient(closest-side at 55% 40%, #000 35%, transparent 75%);
+  pointer-events:none;
+}
+.heroGrid, .heroCopy, .heroVisual{position:relative}
+
+.heroTitle{
+  font-weight: 900;
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: -1.4px;
+  line-height: .95;
+}
+.heroTitleWord{
+  display:block;
+  font-size: clamp(44px, 8.5vw, 86px);
+}
+.heroTitleWord.accent{
+  color: var(--neon);
+  text-shadow: 0 0 0 rgba(0,0,0,0), 0 18px 60px rgba(57,255,20,.18);
+}
+
+.btn{
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+}
+.btn.primary{
+  border-color: rgba(57,255,20,.22);
+  background: linear-gradient(120deg, rgba(57,255,20,.20), rgba(96,165,250,.18));
+}
+.btn.ghost{background: rgba(255,255,255,.04)}
+
+.trustItem{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.device{
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+}
+.screen{
+  border: 1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(900px 500px at 20% 0%, rgba(96,165,250,.10), transparent 45%),
+    radial-gradient(900px 500px at 80% 25%, rgba(57,255,20,.08), transparent 45%),
+    linear-gradient(180deg, rgba(7,10,19,.85), rgba(11,16,36,.85));
+}
+.screenTop{border-bottom: 1px solid rgba(255,255,255,.08)}
+.chip{
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+  color: rgba(255,255,255,.88);
+}
+.pillSmall{
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.82);
+}
+.card{
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+}
+.badge{
+  background: rgba(96,165,250,.12);
+  border: 1px solid rgba(96,165,250,.22);
+  color: rgba(255,255,255,.88);
+}
+.mini{border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03)}
+.bidder{border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03)}
+.ticker{border:1px solid rgba(255,255,255,.09); background: rgba(255,255,255,.03)}
+.tickerTrack{color: rgba(255,255,255,.70)}
+.scrollHint{color: rgba(255,255,255,.62)}
+.mouse{border:1px solid rgba(255,255,255,.22)}
+.mouse:after{background: rgba(255,255,255,.82)}
+
+.section.alt{
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.tile{
+  border: 1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+}
+.tileIcon{border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05)}
+.tile p{color:rgba(255,255,255,.74)}
+.tileList{color:rgba(255,255,255,.72)}
+.feature{border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04)}
+.fNum{color:rgba(255,255,255,.6)}
+.fText{color:rgba(255,255,255,.70)}
+.stackCard{border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05)}
+.row{color:rgba(255,255,255,.76)}
+.row.head{color:rgba(255,255,255,.55)}
+.fxRow{border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03)}
+.overlayMini{border:1px solid rgba(255,255,255,.10); background: rgba(0,0,0,.22)}
+.oBar{background: rgba(255,255,255,.10)}
+.oTeams{color: rgba(255,255,255,.72)}
+.photo{border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04)}
+.stage{border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04)}
+.vignette{
+  background:
+    radial-gradient(700px 350px at 30% 0%, rgba(96,165,250,.16), transparent 58%),
+    radial-gradient(800px 380px at 70% 20%, rgba(57,255,20,.12), transparent 58%),
+    linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.62));
+}
+.hudScore, .hudAuction{border: 1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.35)}
+.hudTop{border-bottom: 1px solid rgba(255,255,255,.10)}
+.hudSub{color: rgba(255,255,255,.75)}
+.sponsor{
+  background: linear-gradient(90deg, rgba(57,255,20,.18), rgba(96,165,250,.16), rgba(77,227,255,.14));
+  border-top: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.88);
+}
+.hudAuction .aTop{border-bottom: 1px solid rgba(255,255,255,.10)}
+.aFooter{border-top: 1px solid rgba(255,255,255,.10)}
+.teamTag{border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.05); color: rgba(255,255,255,.86)}
+.timer{color: rgba(255,255,255,.85)}
+.overlayControls{border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04)}
+.ocHint{color:rgba(255,255,255,.64)}
+.toggle{border: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14)}
+.toggle:hover{background: rgba(0,0,0,.20)}
+.tKnob{background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12)}
+.tKnob:after{background: rgba(255,255,255,.82)}
+.ocNote{color: rgba(255,255,255,.66)}
+.step{border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04)}
+.step p{color: rgba(255,255,255,.72)}
+.ctaBox{border: 1px solid rgba(255,255,255,.12); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03))}
+.ctaBox:before{
+  background: radial-gradient(closest-side at 30% 30%, rgba(96,165,250,.18), transparent 60%),
+              radial-gradient(closest-side at 70% 60%, rgba(57,255,20,.12), transparent 60%);
+}
+.tag{border: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); color: rgba(255,255,255,.82)}
+.contactCard{border: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.18)}
+.contactRow{border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04)}
+.contactLabel{color: rgba(255,255,255,.65)}
+.contactNumber{color: rgba(255,255,255,.92)}
+.contactNote{color: rgba(255,255,255,.66)}
+.footer{border-top: 1px solid rgba(255,255,255,.08); background: rgba(0,0,0,.18)}
+.footLinks a{color: rgba(255,255,255,.70)}
+.footLinks a:hover{background: rgba(255,255,255,.06); color: rgba(255,255,255,.90)}
+.footMeta{color: rgba(255,255,255,.60)}
+
+.glassify{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+
+/* iOS-like glass feel on key surfaces */
+.header,
+.pill,
+.btn,
+.trustItem,
+.device,
+.card,
+.tile,
+.feature,
+.stackCard,
+.overlayControls,
+.hudScore,
+.hudAuction,
+.stage,
+.photo,
+.contactCard,
+.contactRow,
+.teamTag,
+.fxRow,
+.overlayMini{
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+
+.skip{
+  background: rgba(0,0,0,.85);
+  color: rgba(255,255,255,.92);
+}
+
 @media (max-width: 980px){
   .heroGrid{grid-template-columns: 1fr; gap: 22px}
   .overlayDemo{grid-template-columns: 1fr}
@@ -737,8 +1066,8 @@ button,input{font:inherit}
     top: 68px;
     padding: 12px;
     border-radius: 18px;
-    border: 1px solid rgba(0,0,0,.10);
-    background: rgba(255,255,255,.85);
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(0,0,0,.55);
     backdrop-filter: blur(16px);
     display:none;
     flex-direction:column;

@@ -22,14 +22,31 @@
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="introActive">
     <a class="skip" href="#main">Skip to content</a>
 
     <div class="bg" aria-hidden="true">
-      <canvas id="fx" class="fx"></canvas>
       <div class="aurora"></div>
       <div class="grid"></div>
     </div>
+
+    <div class="introOverlay show" id="intro" aria-hidden="true">
+      <canvas id="fx" class="fx" aria-hidden="true"></canvas>
+      <div class="introInner">
+        <div class="introBrand">
+          <span class="brandMark" aria-hidden="true"></span>
+          <span class="brandText">SPORTYFY</span>
+        </div>
+      </div>
+    </div>
+
+    <noscript>
+      <style>
+        body{background:#070B12 !important}
+        .introOverlay{display:none !important}
+        .header, main, .footer{opacity:1 !important; transform:none !important; filter:none !important; pointer-events:auto !important}
+      </style>
+    </noscript>
 
     <header class="header" id="top">
       <nav class="nav">
@@ -62,9 +79,10 @@
               <span>Built for cricket. Ready for any sport.</span>
             </div>
 
-            <h1 class="h1">
-              <span data-split>Run auctions, tournaments, fixtures, and scoring —</span>
-              <span class="grad h1Accent" data-reveal>all in one place</span>.
+            <h1 class="h1 heroTitle">
+              <span class="heroTitleWord">VELOCITY</span>
+              <span class="heroTitleWord accent">IN</span>
+              <span class="heroTitleWord">MOTION.</span>
             </h1>
 
             <p class="lead" data-reveal>
