@@ -37,51 +37,6 @@ if (navToggle && navLinks) {
   });
 }
 
-// Voice: pronounce "SPORTYFY" (requires user gesture on most browsers)
-function initVoice() {
-  const btn = document.getElementById("speakBtn");
-  const brand = document.querySelector(".brand");
-  if (!btn && !brand) return;
-
-  if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
-
-  let cachedVoice = null;
-
-  function pickVoice() {
-    const voices = window.speechSynthesis.getVoices?.() || [];
-    cachedVoice =
-      voices.find((v) => String(v.lang).toLowerCase().startsWith("en") && /female|samantha|zira/i.test(v.name)) ||
-      voices.find((v) => String(v.lang).toLowerCase().startsWith("en")) ||
-      voices[0] ||
-      null;
-  }
-
-  pickVoice();
-  window.speechSynthesis.addEventListener?.("voiceschanged", pickVoice);
-
-  function speak() {
-    try {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance("Sportyfy");
-      u.lang = (cachedVoice && cachedVoice.lang) || "en-US";
-      if (cachedVoice) u.voice = cachedVoice;
-      u.rate = 0.95;
-      u.pitch = 1.05;
-      u.volume = 1;
-      window.speechSynthesis.speak(u);
-    } catch {
-      // Ignore
-    }
-  }
-
-  btn?.addEventListener("click", speak);
-  brand?.addEventListener("dblclick", (e) => {
-    e.preventDefault();
-    speak();
-  });
-}
-initVoice();
-
 // Canvas particles background
 function initFx() {
   const canvas = document.getElementById("fx");
@@ -90,6 +45,47 @@ function initFx() {
   const introEl = document.getElementById("intro");
   document.body.classList.add("introActive");
   if (introEl) introEl.classList.add("show");
+
+  // Voice during intro: "Welcome to SPORTYFY"
+  let welcomeSpoken = false;
+  let cachedVoice = null;
+
+  function pickVoice() {
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
+    const voices = window.speechSynthesis.getVoices?.() || [];
+    cachedVoice =
+      voices.find((v) => String(v.lang).toLowerCase().startsWith("en") && /female|samantha|zira/i.test(v.name)) ||
+      voices.find((v) => String(v.lang).toLowerCase().startsWith("en")) ||
+      voices[0] ||
+      null;
+  }
+
+  function speakWelcome() {
+    if (welcomeSpoken) return;
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
+    welcomeSpoken = true;
+
+    try {
+      pickVoice();
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance("Welcome to Sportyfy");
+      u.lang = (cachedVoice && cachedVoice.lang) || "en-US";
+      if (cachedVoice) u.voice = cachedVoice;
+      u.rate = 0.95;
+      u.pitch = 1.02;
+      u.volume = 1;
+      window.speechSynthesis.speak(u);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Try to play automatically (may be blocked by browser). If blocked, user tap during intro will play it.
+  if (!prefersReduced) {
+    window.speechSynthesis?.addEventListener?.("voiceschanged", pickVoice);
+    setTimeout(speakWelcome, 120);
+    introEl?.addEventListener("pointerdown", speakWelcome, { once: true });
+  }
 
   const ctx = canvas.getContext("2d", { alpha: true });
   const DPR = Math.min(2, window.devicePixelRatio || 1);
