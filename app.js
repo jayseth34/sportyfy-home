@@ -56,7 +56,9 @@ function initFx() {
     if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
     const voices = window.speechSynthesis.getVoices?.() || [];
     cachedVoice =
-      voices.find((v) => String(v.lang).toLowerCase().startsWith("en") && /female|samantha|zira/i.test(v.name)) ||
+      voices.find((v) => String(v.lang).toLowerCase().startsWith("en") && /male|david|mark|guy|daniel|george|james|ryan/i.test(v.name)) ||
+      voices.find((v) => String(v.lang).toLowerCase().startsWith("en") && /microsoft.*(david|mark|guy|george|james|ryan)/i.test(v.name)) ||
+      voices.find((v) => String(v.lang).toLowerCase().startsWith("en") && /google.*(uk)?\\s*english.*male/i.test(v.name)) ||
       voices.find((v) => String(v.lang).toLowerCase().startsWith("en")) ||
       voices[0] ||
       null;
@@ -80,7 +82,7 @@ function initFx() {
       u.lang = (cachedVoice && cachedVoice.lang) || "en-US";
       if (cachedVoice) u.voice = cachedVoice;
       u.rate = 0.95;
-      u.pitch = 1.02;
+      u.pitch = 0.86;
       u.volume = 1;
       u.onstart = () => {
         welcomeStarted = true;
