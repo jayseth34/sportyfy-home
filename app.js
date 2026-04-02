@@ -134,10 +134,10 @@ function initFx() {
       return {
         x: Math.random() * w,
         y: Math.random() * h,
-        r: 0.9 + Math.random() * 1.9,
+        r: 1.1 + Math.random() * 2.2,
         vx: (-0.3 + Math.random() * 0.6) * 0.65,
         vy: (-0.3 + Math.random() * 0.6) * 0.65,
-        a: 0.10 + Math.random() * 0.20,
+        a: 0.14 + Math.random() * 0.26,
         tx: tgt.x,
         ty: tgt.y,
       };
@@ -157,8 +157,23 @@ function initFx() {
     t += 0.006;
     ctx.clearRect(0, 0, w, h);
 
-    // Trail for cinematic look
-    const trail = phase === "fade" ? 0.32 : 0.26;
+    function drawDot(dot, alphaMul) {
+      const g = Math.max(0, Math.min(1, alphaMul));
+      // Glow pass
+      ctx.fillStyle = `rgba(255,255,255,${0.10 * g})`;
+      ctx.beginPath();
+      ctx.arc(dot.x, dot.y, dot.r * 2.0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Core
+      ctx.fillStyle = `rgba(255,255,255,${(dot.a + 0.62) * g})`;
+      ctx.beginPath();
+      ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Darker background + crisper particles
+    const trail = phase === "hold" ? 0.62 : phase === "fade" ? 0.58 : 0.56;
     ctx.fillStyle = `rgba(0,0,0,${trail})`;
     ctx.fillRect(0, 0, w, h);
 
@@ -186,24 +201,14 @@ function initFx() {
           dot.y += dot.vy * (dt * 60);
         }
 
-        for (const dot of particles) {
-          ctx.fillStyle = `rgba(255,255,255,${dot.a + 0.28})`;
-          ctx.beginPath();
-          ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
-          ctx.fill();
-        }
+        for (const dot of particles) drawDot(dot, 1);
 
         if (p >= 1) {
           phase = "hold";
           phaseStart = now;
         }
       } else if (phase === "hold") {
-        for (const dot of particles) {
-          ctx.fillStyle = `rgba(255,255,255,${dot.a + 0.32})`;
-          ctx.beginPath();
-          ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
-          ctx.fill();
-        }
+        for (const dot of particles) drawDot(dot, 1);
         if (now - phaseStart >= holdDur) {
           phase = "fade";
           phaseStart = now;
@@ -212,12 +217,7 @@ function initFx() {
         const fp = clamp((now - phaseStart) / fadeDur, 0, 1);
         const alpha = 1 - (1 - Math.pow(1 - fp, 3));
         const a = 1 - alpha;
-        for (const dot of particles) {
-          ctx.fillStyle = `rgba(255,255,255,${(dot.a + 0.32) * a})`;
-          ctx.beginPath();
-          ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
-          ctx.fill();
-        }
+        for (const dot of particles) drawDot(dot, a);
         if (fp >= 1) {
           // End: hide particles entirely, reveal content with glass UI.
           canvas.style.opacity = "0";
